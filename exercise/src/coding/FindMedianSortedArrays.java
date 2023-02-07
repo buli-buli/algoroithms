@@ -9,8 +9,8 @@ import java.util.Arrays;
  **/
 public class FindMedianSortedArrays {
     public static void main(String[] args) {
-        int[] nums1 = new int[] {1,3,5,7,9};
-        int[] nums2 = new int[] {3,5,7,8,9};
+        int[] nums1 = new int[] {1,2,3,4};
+        int[] nums2 = new int[] {5,6,7,8};
 
         findMedianSortedArrays1(nums1, nums2);
     }
@@ -40,36 +40,80 @@ public class FindMedianSortedArrays {
 
     public static double findMedianSortedArrays1(int[] nums1, int[] nums2) {
         //合并两个数组
-        int[] nums3 = new int[nums1.length + nums2.length];
+        //两个数组长度
+        int lengthSum = nums1.length + nums2.length;
+        int a = lengthSum / 2 - 1;
+        int aValue = 0;
+        int b = lengthSum / 2;
+        int bValue = 0;
         int flag1 = 0;
         int flag2 = 0;
         int flag3 = 0;
 
-        while (flag1 < nums1.length || flag2 < nums2.length){
+        while (flag3 <= b && (flag1 < nums1.length && flag2 < nums2.length)){
             if (nums1[flag1] < nums2[flag2]){
-                nums3[flag3] = nums1[flag1];
+                if (flag3 == a){
+                    aValue = nums1[flag1];
+                }
+                if (flag3 == b){
+                    bValue = nums1[flag1];
+                }
                 flag1++;
                 flag3++;
             }else if (nums1[flag1] > nums2[flag2]){
-                nums3[flag3] = nums2[flag2];
+                if (flag3 == a){
+                    aValue = nums2[flag2];
+                }
+                if (flag3 == b){
+                    bValue = nums2[flag2];
+                }
                 flag3++;
                 flag2++;
             }else {
-                nums3[flag3] = nums1[flag1];
-                flag3++;
-                nums3[flag3] = nums2[flag2];
+                if (flag3 == a){
+                    aValue = nums1[flag1];
+
+                }
+                if (flag3 == b){
+                    bValue = nums1[flag1];
+                }
                 flag1++;
-                flag2++;
                 flag3++;
             }
         }
 
-        if (nums3.length % 2 != 0){
-            System.out.println(nums3[nums3.length / 2] / 1d);
-            return nums3[nums3.length / 2] / 1d;
+        if (flag1 >= nums1.length){
+            while(flag3 <= b && flag2 < nums2.length){
+                if (flag3 == a){
+                    aValue = nums2[flag2];
+                }
+                if (flag3 == b){
+                    bValue = nums2[flag2];
+                }
+                flag3++;
+                flag2++;
+            }
+        }
+
+        if (flag2 >= nums2.length){
+            while(flag3 <= b && flag1 < nums1.length){
+                if (flag3 == a){
+                    aValue = nums1[flag1];
+                }
+                if (flag3 == b){
+                    bValue = nums1[flag1];
+                }
+                flag1++;
+                flag3++;
+            }
+        }
+
+        if (lengthSum % 2 != 0){
+            System.out.println(bValue / 1d);
+            return bValue / 1d;
         }else {
-            System.out.println((nums3[nums3.length / 2 - 1] + nums3[nums3.length / 2]) / 2d);
-            return (nums3[nums3.length / 2 - 1] + nums3[nums3.length / 2]) / 2d;
+            System.out.println((aValue + bValue) / 2d);
+            return (aValue + bValue) / 2d;
         }
     }
 }
