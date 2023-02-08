@@ -1,4 +1,4 @@
-package coding;
+package coding.hard;
 
 import java.util.Arrays;
 
