@@ -14,10 +14,10 @@ public class PassThePillow {
 
     public static int passThePillow(int n, int time) {
         int round = n + n - 2;
-        System.out.println(round);
+//        System.out.println(round);
 
         int mod = time % round;
-        System.out.println(mod);
+//        System.out.println(mod);
 
         if (mod < n){
             return mod + 1;
