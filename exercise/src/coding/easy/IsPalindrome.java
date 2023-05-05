@@ -1,13 +1,16 @@
 package coding.easy;
 
+import java.util.Locale;
+
 /**
  * @author: yuzhiwei
- * @description:
+ * @description: 验证是否回文串
  * @create: 2023/2/6 17:58
  **/
 public class IsPalindrome {
     public static void main(String[] args) {
         System.out.println(isPalindrome(100));
+        System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
     }
 
     public static boolean isPalindrome(int x) {
@@ -39,5 +42,32 @@ public class IsPalindrome {
         }
 
         return true;
+    }
+
+    public static boolean isPalindrome(String s) {
+        //去除非字母和数字字符
+        String str = removeNonAlphanumeric(s);
+        //字母全部改成小写
+        str = str.toLowerCase();
+
+        int left = 0;
+        int right = str.length() - 1;
+
+        while(left <= right){
+            if (str.charAt(left) != str.charAt(right)){
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+
+    public static String removeNonAlphanumeric(String str) {
+        String regex = "[^a-zA-Z0-9]";
+        String result = str.replaceAll(regex, "");
+        return result;
     }
 }
