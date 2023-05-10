@@ -13,7 +13,7 @@ public class SmallestRepunitDivByK {
     public static void main(String[] args) {
         SmallestRepunitDivByK s = new SmallestRepunitDivByK();
 
-        System.out.println(s.smallestRepunitDivByK(17));
+        System.out.println(s.smallestRepunitDivByK(6));
     }
 
     public int smallestRepunitDivByK(int k) {
