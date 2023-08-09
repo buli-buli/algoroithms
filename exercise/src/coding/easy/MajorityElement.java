@@ -2,7 +2,7 @@ package coding.easy;
 
 /**
  * @author: yuzhiwei
- * @description:
+ * @description: 多数元素(分治解法)
  * @create: 2023/2/17 11:20
  **/
 public class MajorityElement {
