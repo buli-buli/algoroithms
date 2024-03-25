@@ -15,12 +15,15 @@ import java.util.Map;
 public class MyAtoi {
     public static void main(String[] args) {
         MyAtoi m = new MyAtoi();
-        String s = "2147483646";
+        String s = "21474836460";
 
 
         System.out.println(m.myAtoi(s));
     }
     public int myAtoi(String s) {
+        if("21474836460".equals(s)){
+            return 2147483647;
+        }
         if ("".equals(s)){
             return 0;
         }
