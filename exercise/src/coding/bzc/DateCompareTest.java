@@ -1,9 +1,6 @@
 package coding.bzc;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ClassNAME DateCompareTest
@@ -14,11 +11,18 @@ public class DateCompareTest {
     public static void main(String[] args) {
         DateCompareTest dt = new DateCompareTest();
 //        dt.testCompareDate();
-
-
+//        dt.testGetDateByCalendar();
     }
 
-
+    public void testGetDateByCalendar(){
+        String dateStr = "1,2,3,4,5";
+        String[] days =  dateStr.split(",");
+        Calendar calendar =Calendar.getInstance();
+        int day = calendar.get(Calendar.DATE);
+        if(!Arrays.asList(days).contains(day+"")){
+            return;
+        }
+    }
 
     public void testCompareDate(){
         Date checkTime = new Date();
