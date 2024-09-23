@@ -8,11 +8,20 @@ package coding.easy;
  * @Version 1.0
  */
 public class ClimbStairs {
+    public static void main(String[] args) {
+        ClimbStairs c = new ClimbStairs();
+        System.out.println(c.climbStairs(45));
+    }
+
     public int climbStairs(int n) {
-        if (n == 1 || n == 2){
-            return 1;
+        int a=0,b=0,c = 1;
+
+        for (int i = 1; i <= n; i++){
+            a=b;
+            b=c;
+            c=a+b;
         }
 
-        return climbStairs(n - 1) + climbStairs(n - 2);
+        return c;
     }
 }
