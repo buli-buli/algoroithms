@@ -25,7 +25,8 @@ public class AllTest {
 //        testSplit3(false, "wadsd");
 //        testPositionSum();
 //        testBatchStringBuilder(1L);
-        testGetStandardfee(20, new BigDecimal("100"));
+//        testGetStandardfee(20, new BigDecimal("100"));
+        testChar();
     }
 
     static void testStream(){
@@ -288,6 +289,12 @@ public class AllTest {
             System.out.println("原逻辑");
         }
     }
+
+    static void testChar(){
+        char a = 'B';
+        System.out.println(a-'A' + 1);
+    }
+
 
 }
 

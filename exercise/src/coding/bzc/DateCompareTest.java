@@ -10,7 +10,7 @@ import java.util.*;
 public class DateCompareTest {
     public static void main(String[] args) {
         DateCompareTest dt = new DateCompareTest();
-//        dt.testCompareDate();
+        dt.testCompareDate();
 //        dt.testGetDateByCalendar();
     }
 
