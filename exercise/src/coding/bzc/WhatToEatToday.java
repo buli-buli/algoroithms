@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class WhatToEatToday extends JFrame {
-    private static Random random = new Random(47);
     
     private JLabel label;
     private JButton button;
@@ -34,9 +33,10 @@ public class WhatToEatToday extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] menu = {"烧鹅","黄焖鸡","酸菜鱼"};
+                String[] menu = {"饺子","黄焖鸡","烧鹅","旧酸菜鱼","黄焖鸡","烧鹅","饺子","新酸菜鱼"};
 
-                Integer count = random.nextInt(menu.length);
+                Random random = new Random();
+                int count = random.nextInt(menu.length);
                 label.setText(menu[count]);
             }
         });

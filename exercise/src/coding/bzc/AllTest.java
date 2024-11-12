@@ -2,6 +2,9 @@ package coding.bzc;
 
 import javax.jnlp.IntegrationService;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -13,7 +16,7 @@ import java.util.stream.Collectors;
 public class AllTest {
     private static Random ran = new Random();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 //        testStream();
 //        testStringLength();
 //        testLongToInt();
@@ -26,7 +29,13 @@ public class AllTest {
 //        testPositionSum();
 //        testBatchStringBuilder(1L);
 //        testGetStandardfee(20, new BigDecimal("100"));
-        testChar();
+//        testChar();
+//        System.out.println(testIntervalDays("2022-06-07","2022-06-08","yyyy-MM-dd"));
+//        testHashMapInitSize();
+//        testMinusDate();
+//        testInStringLength();
+//        testIntegerCompare();
+        testIntegerCompare1();
     }
 
     static void testStream(){
@@ -292,10 +301,82 @@ public class AllTest {
 
     static void testChar(){
         char a = 'B';
-        System.out.println(a-'A' + 1);
+        System.out.println(a-'A');
+
+        Integer i = 2;
+        System.out.println((char)('A' + i - 1));
     }
 
+    static int testIntervalDays(String startDateStr, String endDateStr, String fmt) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat(fmt);
 
+        Date startdate = sdf.parse(startDateStr);
+        Date enddate = sdf.parse(endDateStr);
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startdate);
+        long time1 = cal.getTimeInMillis();
+
+        cal.setTime(enddate);
+        long time2 = cal.getTimeInMillis();
+
+        long days = (time2 - time1) / (24 * 3600 * 1000);
+        return (int) days;
+    }
+
+    static void testHashMapInitSize() throws ParseException {
+        Map<Integer, String> map = new HashMap<>(16);
+
+        for (int i = 0; i < 20; i++){
+            map.put(i, i * 10086 + "");
+        }
+
+        for (Integer i : map.keySet()){
+            System.out.println(map.get(i));
+        }
+    }
+
+    static void testMinusDate(){
+        LocalDate now = LocalDate.now();
+
+        LocalDate minusWeek = now.minusWeeks(1l);
+
+        LocalDate minusMonth = now.minusMonths(1l);
+
+        LocalDate minusThreeMonths = now.minusMonths(3l);
+
+        System.out.println(now.toString());
+        System.out.println(minusWeek.toString());
+        System.out.println(minusMonth.toString());
+        System.out.println(minusThreeMonths.toString());
+    }
+
+    static void testInStringLength(){
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 10000000; i < 10000000+10000; i++){
+            sb.append(i);
+            sb.append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+
+        System.out.println(sb.toString());
+    };
+
+    static void testIntegerCompare(){
+        Integer a = 15678;
+        Integer b = null;
+        if (a.compareTo(b) > 0){
+            System.out.println("可以");
+        }
+    };
+
+    static void testIntegerCompare1(){
+        Integer a = 5000;
+        Integer b = 5000;
+
+        System.out.println(a==b);
+    }
 }
 
 
