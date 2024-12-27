@@ -35,7 +35,16 @@ public class AllTest {
 //        testMinusDate();
 //        testInStringLength();
 //        testIntegerCompare();
-        testIntegerCompare1();
+//        testIntegerCompare1();
+//        testCaught();
+//        testDivide();
+//        testBreak();
+        testEmptyBuilder();
+    }
+
+    private static void testEmptyBuilder() {
+        StringBuilder buiulder = new StringBuilder();
+        System.out.println(buiulder.toString());
     }
 
     static void testStream(){
@@ -376,6 +385,46 @@ public class AllTest {
         Integer b = 5000;
 
         System.out.println(a==b);
+    }
+
+    static void testCaught(){
+        Integer a = 5000;
+
+        try{
+            a = a/0;
+
+            System.out.println("报错之后");
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("捕获了");
+        }
+
+
+
+        System.out.println("giao");
+    }
+
+    static void testDivide(){
+        Integer a = 5;
+        Integer b = 6;
+
+        BigDecimal rate = new BigDecimal((a * 100 / b));
+
+        System.out.println(rate.toString());
+    }
+
+    static void testBreak(){
+        String str = "你有这么高速运转的机器进入中国记住我给出的原理小的时候，为什么说\n\r\n意大利面就要拌26号混凝土";
+        String str1 = "你有这么高速运转的机器进入中国记住我给出的原理小的时候，为什么说意大利面就要拌26号混凝土";
+        String str2 = "1）在晶澳公司正式验收之前，代理商应先完成自查及整改工作；<br>2）针对电站施工与北京晶澳公司标准吻合度，结构安全、电气安全等方面进行线下检查。\\n3）与《附件1：晶澳户用光伏电站质量验收评定表》一并作为附件上传至晶澳兴家系统。\\n4）本报告使用流程：\n" +
+                "①晶澳验收人员完成报告，并下发给代理商； ②代理商相关人员完成电站整改，回传报告； ③晶澳验收人员核验结果。";
+
+        String[] array = str.split("\n");
+
+        for (int i = 0; i < array.length; i++){
+            System.out.println(array[i]);
+            System.out.println("giao");
+        }
     }
 }
 
