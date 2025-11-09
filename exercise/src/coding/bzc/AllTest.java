@@ -6,6 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -16,7 +19,7 @@ import java.util.stream.Collectors;
 public class AllTest {
     private static Random ran = new Random();
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, InterruptedException {
 //        testStream();
 //        testStringLength();
 //        testLongToInt();
@@ -39,7 +42,116 @@ public class AllTest {
 //        testCaught();
 //        testDivide();
 //        testBreak();
-        testEmptyBuilder();
+//        testEmptyBuilder();
+//        testReplace();
+//        testBuilder();
+//        bigDecimalTest();
+//        testMatchMonth();
+//        testFun();
+//        testHashMapSpace();
+//        testGetTime();
+//        testTimeCompare();
+//        testQuickSort();
+        testChangeShort();
+    }
+
+    private static void testTimeCompare() throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date mergechecktime = sdf.parse("2023-09-14 17:14:16");
+
+        Date jobExecuteTime = sdf.parse("2024-09-13 00:00:00");
+
+        Calendar jobExecuteCalender = Calendar.getInstance();
+        jobExecuteCalender.setTime(jobExecuteTime);
+        jobExecuteCalender.set(Calendar.HOUR_OF_DAY, 0);
+        jobExecuteCalender.set(Calendar.MINUTE, 0);
+        jobExecuteCalender.set(Calendar.SECOND, 0);
+        jobExecuteCalender.set(Calendar.MILLISECOND, 0);
+        long jobExecuteMillis = jobExecuteCalender.getTimeInMillis();
+
+        Calendar mergeTime = Calendar.getInstance();
+        mergeTime.setTime(mergechecktime);
+        mergeTime.set(Calendar.HOUR_OF_DAY, 0);
+        mergeTime.set(Calendar.MINUTE, 0);
+        mergeTime.set(Calendar.SECOND, 0);
+        mergeTime.set(Calendar.MILLISECOND, 0);
+        long mergeTimeMillis = mergeTime.getTimeInMillis();
+
+        //2、根据并网时间，判断是否是间隔周期值
+        if (mergechecktime != null) {
+            long days = TimeUnit.MILLISECONDS.toDays(jobExecuteMillis - mergeTimeMillis);
+            long value = Long.parseLong("365");
+            //相差天数能整除间隔周期
+            if (days >= value && days % value == 0) {
+                System.out.println("giao");
+            }
+        }
+    }
+
+    private static void testGetTime() throws InterruptedException {
+
+
+        System.out.println(new Date().getTime());
+        System.out.println(String.valueOf(new Date().getTime()));
+    }
+
+    private static void testHashMapSpace() throws InterruptedException {
+        Map<String, String> map = new HashMap<>();
+
+        map.put("545 W", "giao");
+
+        System.out.println(map.containsKey("545 W"));
+    }
+
+    private static void testFun() throws InterruptedException {
+        Integer count = 0;
+        int length = 200;
+
+        int mark = -1;
+
+        int flag = length;
+        while(count <= 100000){
+            flag += mark;
+
+            for (int i = 0; i < flag; i++){
+                System.out.printf("-");
+            }
+            System.out.println();
+
+            if (flag > length){
+                mark = -1;
+            }
+            if (flag <= 0){
+                mark = 1;
+            }
+
+            count++;
+        }
+    }
+
+    private static void testMatchMonth(){
+        String date1 = "aaaa";
+        String date2 = "bbbbb";
+        String date3 = "9999-000";
+        String date4 = "2022-05";
+
+        //yyyy-MM
+        String regexp="\\d{4}-(([0]+[1-9])|([1]+[0-2]))";
+        // 编译正则表达式
+        Pattern pattern = Pattern.compile(regexp);
+
+        System.out.println(pattern.matcher(date1).matches());
+        System.out.println(pattern.matcher(date2).matches());
+        System.out.println(pattern.matcher(date3).matches());
+        System.out.println(pattern.matcher(date4).matches());
+    }
+
+    private static void bigDecimalTest() {
+        BigDecimal a = new BigDecimal("5");
+        BigDecimal b = new BigDecimal("100");
+
+        System.out.println(a.subtract(b).toString());
     }
 
     private static void testEmptyBuilder() {
@@ -53,6 +165,10 @@ public class AllTest {
         for (int i = 0; i < 5; i++){
             BillInfo info = new BillInfo();
             info.setId(i + 1);
+
+            if (i % 2 == 0){
+                info.setAccountId(10000 + i);
+            }
 
             infos.add(info);
         }
@@ -425,6 +541,111 @@ public class AllTest {
             System.out.println(array[i]);
             System.out.println("giao");
         }
+    }
+
+    static void testReplace(){
+        String a = "广东省广州市天河区马应龙";
+        String b = "广东省广州市天河区";
+
+        String c = a.replace(b, "");
+
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
+    }
+
+    static void testBuilder(){
+        BillInfo b = new BillInfo();
+        b.setId(1);
+        b.setName("111");
+        b.setAccountId(null);
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(b.getId());
+        sb.append(",");
+        sb.append(b.getName());
+        sb.append(",");
+        sb.append(b.getAccountId());
+        sb.append(",");
+
+        System.out.println(sb.toString());
+
+    }
+
+    static void testQuickSort(){
+        int[] nums = {1,23,44,55,34,57,83,435,43,5,346,45234,38,3423,4,324};
+
+        sortPart(0, nums.length - 1, nums);
+
+
+    }
+    static void sortPart(int l, int r, int[] nums){
+        if (l >= r){
+            return;
+        }
+
+        int pivot = nums[(l + r) / 2];
+        int i = l;
+        int j = r;
+        while (i <= j){
+            while(nums[i] > pivot){
+                i ++ ;
+            }
+            while(nums[j] < pivot){
+                j--;
+            }
+
+            if (i <= j){
+                swap(i, j, nums);
+                i++;
+                j--;
+            }
+
+        }
+
+        sortPart(l, j, nums);
+        sortPart(i, r, nums);
+    }
+
+    private static void printArray(int[] nums) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < nums.length; i++){
+            if (sb.length() == 0){
+                sb.append(nums[i]);
+            }else {
+                sb.append(",").append(nums[i]);
+            }
+        }
+        System.out.println(sb.toString());
+    }
+
+    private static void swap(int lf, int rf, int[] nums) {
+        int tmp = nums[lf];
+        nums[lf] = nums[rf];
+        nums[rf] = tmp;
+    }
+
+    /*static void quickSort(int l, int r, int[] nums) {
+        if (l >= r) return;
+        int pivot = nums[(l + r) / 2]; // 或随机选择
+        int i = l, j = r;
+        while (i <= j) {
+            while (nums[i] < pivot) i++;
+            while (nums[j] > pivot) j--;
+            if (i <= j) {
+                swap(i, j, nums);
+                printArray(nums);
+                i++;
+                j--;
+            }
+        }
+        quickSort(l, j, nums);
+        quickSort(i, r, nums);
+    }*/
+
+    static void testChangeShort(){
+        System.out.println((short) 11.5);
     }
 }
 
