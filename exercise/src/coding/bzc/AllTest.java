@@ -52,7 +52,8 @@ public class AllTest {
 //        testGetTime();
 //        testTimeCompare();
 //        testQuickSort();
-        testChangeShort();
+//        testChangeShort();
+        testEmptyArrayStream();
     }
 
     private static void testTimeCompare() throws ParseException {
@@ -624,6 +625,14 @@ public class AllTest {
         int tmp = nums[lf];
         nums[lf] = nums[rf];
         nums[rf] = tmp;
+    }
+
+    private static void testEmptyArrayStream(){
+        List<Integer> array = new ArrayList<>();
+
+        array.forEach(item -> {
+            System.out.println("giao");
+        });
     }
 
     /*static void quickSort(int l, int r, int[] nums) {
