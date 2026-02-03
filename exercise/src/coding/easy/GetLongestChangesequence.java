@@ -1,7 +1,6 @@
-package coding.dynamic.easy;
+package coding.easy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
