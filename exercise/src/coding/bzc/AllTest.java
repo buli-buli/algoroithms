@@ -656,6 +656,10 @@ public class AllTest {
     static void testChangeShort(){
         System.out.println((short) 11.5);
     }
+
+    static void printBinaryString(int n){
+        System.out.println(Integer.toBinaryString(n));
+    }
 }
 
 
