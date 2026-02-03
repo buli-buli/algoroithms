@@ -53,7 +53,7 @@ public class AllTest {
 //        testTimeCompare();
 //        testQuickSort();
 //        testChangeShort();
-        testEmptyArrayStream();
+//        testEmptyArrayStream();
     }
 
     private static void testTimeCompare() throws ParseException {
