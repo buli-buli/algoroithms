@@ -1,8 +1,6 @@
 package coding;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * @author yzw
@@ -12,6 +10,13 @@ import java.util.Queue;
 public class MyUtil {
     public static void printArray(int[][] arr) {
         for (int[] row : arr) {
+            System.out.println(Arrays.toString(row));
+        }
+        System.out.println();
+    }
+
+    public static void printCharArray(char[][] arr) {
+        for (char[] row : arr) {
             System.out.println(Arrays.toString(row));
         }
         System.out.println();
@@ -46,5 +51,69 @@ public class MyUtil {
         }
 
         return root;
+    }
+
+    /**
+     * 将形如 [["1","0",...],...] 的字符串解析为 char[][]
+     *
+     * @param input 格式：[["1","0","1","0","0"],["1","0","1","1","1"],...]
+     * @return 对应的 char[][] 矩阵
+     * @throws IllegalArgumentException 如果格式非法
+     */
+    public static char[][] parseStringMatrix(String input) {
+        if (input == null || input.trim().isEmpty()) {
+            return new char[0][0];
+        }
+
+        String s = input.trim();
+        if (!s.startsWith("[") || !s.endsWith("]")) {
+            throw new IllegalArgumentException("Invalid format: must start with [ and end with ]");
+        }
+
+        // 去掉最外层 []
+        s = s.substring(1, s.length() - 1).trim();
+        if (s.isEmpty()) {
+            return new char[0][0];
+        }
+
+        // 按 "],[" 分割行（注意可能有空格）
+        // 使用正则分割，兼容空格：],\s*\[
+        String[] rowStrings = s.split("\\],\\s*\\[");
+
+        char[][] matrix = new char[rowStrings.length][];
+
+        for (int i = 0; i < rowStrings.length; i++) {
+            String row = rowStrings[i].trim();
+            // 清理可能残留的 [ 或 ]
+            row = row.replaceFirst("^\\[", "").replaceFirst("\\]$", "").trim();
+
+            if (row.isEmpty()) {
+                matrix[i] = new char[0];
+                continue;
+            }
+
+            // 提取所有 "..." 中的内容
+            List<Character> chars = new ArrayList<>();
+            // 匹配所有 \"([^\"]*)\" 形式的字符串
+            java.util.regex.Matcher m = java.util.regex.Pattern.compile("\"([^\"]*)\"").matcher(row);
+            while (m.find()) {
+                String val = m.group(1);
+                if (val.length() != 1) {
+                    throw new IllegalArgumentException("Each element must be a single character, got: \"" + val + "\"");
+                }
+                chars.add(val.charAt(0));
+            }
+
+            if (chars.isEmpty()) {
+                throw new IllegalArgumentException("No valid elements found in row: " + row);
+            }
+
+            matrix[i] = new char[chars.size()];
+            for (int j = 0; j < chars.size(); j++) {
+                matrix[i][j] = chars.get(j);
+            }
+        }
+
+        return matrix;
     }
 }
